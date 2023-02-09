@@ -13,12 +13,12 @@ class StudentNotifier extends StateNotifier<List<StudentModel>> {
   }
 
   void updateStudent(
-      {required String name, required String age, required int index}) {
+      {required String name, required String age, required int id}) {
  
 
     var newState = state.map(
       (student) {
-        if (student.id == index) {
+        if (student.id == id) {
           return student.copyWith(name: name, age: age);
         } else {
           return student;

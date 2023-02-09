@@ -1,4 +1,5 @@
 import 'package:crudapp_riverpod/data/model/student_model.dart';
+import 'package:crudapp_riverpod/feature/home/controller/notifier/button_pod.dart';
 import 'package:crudapp_riverpod/feature/home/controller/notifier/home_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,25 +73,46 @@ class _HomePageState extends ConsumerState<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Consumer(
                 builder: (context, ref, child) {
+                  final isVisibleUpdateButton = ref.watch(isVisibleUpdateButtonPod);
                   return SizedBox(
                     height: 40,
                     width: 200,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        ref.read(studentNotifierPod.notifier).addStudent(
-                              StudentModel(
-                                name: namecontroller.text,
-                                age: agecontroller.text,
-                                id: int.parse(idcontroller.text),
-                              ),
-                            );
-                        idcontroller.clear();
-                        namecontroller.clear();
-                        agecontroller.clear();
-                      },
-                      icon: const Icon(Icons.add),
-                      label: const Text('Add'),
-                    ),
+                    child: isVisibleUpdateButton
+                        ? ElevatedButton.icon(
+                            onPressed: () {
+                              ref
+                                  .read(studentNotifierPod.notifier)
+                                  .updateStudent(
+                                    name: namecontroller.text,
+                                    age: agecontroller.text,
+                                    id: int.parse(idcontroller.text),
+                                  );
+                              idcontroller.clear();
+                              namecontroller.clear();
+                              agecontroller.clear();
+                              ref
+                                  .read(isVisibleUpdateButtonPod.notifier)
+                                  .state = false;
+                            },
+                            icon: const Icon(Icons.update),
+                            label: const Text('Update'),
+                          )
+                        : ElevatedButton.icon(
+                            onPressed: () {
+                              ref.read(studentNotifierPod.notifier).addStudent(
+                                    StudentModel(
+                                      name: namecontroller.text,
+                                      age: agecontroller.text,
+                                      id: int.parse(idcontroller.text),
+                                    ),
+                                  );
+                              idcontroller.clear();
+                              namecontroller.clear();
+                              agecontroller.clear();
+                            },
+                            icon: const Icon(Icons.add),
+                            label: const Text('Add'),
+                          ),
                   );
                 },
               ),
@@ -118,12 +140,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                             IconButton(
                               onPressed: () {
                                 ref
-                                    .read(studentNotifierPod.notifier)
-                                    .updateStudent(
-                                      name: namecontroller.text,
-                                      age: agecontroller.text,
-                                      index: index + 1,
-                                    );
+                                    .read(isVisibleUpdateButtonPod.notifier)
+                                    .state = true;
+                                idcontroller.text = student.id.toString();
+                                namecontroller.text = student.name;
+                                agecontroller.text = student.age;
                               },
                               icon: const Icon(
                                 Icons.edit,
