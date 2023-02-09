@@ -6,10 +6,10 @@ import 'package:crudapp_riverpod/feature/home/presentation/home.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      page: DashboardView,
-      initial: true,
       path: '/DashBoard',
+      page: DashboardView,
       name: 'DashBoardRouter',
+      initial: true,
     ),
     AutoRoute(
       path: '/homePage',
