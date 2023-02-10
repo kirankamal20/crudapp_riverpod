@@ -30,9 +30,13 @@ class AppRouter extends _i3.RootStackRouter {
       );
     },
     HomePageRouter.name: (routeData) {
+      final args = routeData.argsAs<HomePageRouterArgs>();
       return _i3.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.HomePage(),
+        child: _i2.HomePage(
+          id: args.id,
+          key: args.key,
+        ),
       );
     },
   };
@@ -70,12 +74,34 @@ class DashBoardRouter extends _i3.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.HomePage]
-class HomePageRouter extends _i3.PageRouteInfo<void> {
-  const HomePageRouter()
-      : super(
+class HomePageRouter extends _i3.PageRouteInfo<HomePageRouterArgs> {
+  HomePageRouter({
+    required int id,
+    _i4.Key? key,
+  }) : super(
           HomePageRouter.name,
           path: '/homePage',
+          args: HomePageRouterArgs(
+            id: id,
+            key: key,
+          ),
         );
 
   static const String name = 'HomePageRouter';
+}
+
+class HomePageRouterArgs {
+  const HomePageRouterArgs({
+    required this.id,
+    this.key,
+  });
+
+  final int id;
+
+  final _i4.Key? key;
+
+  @override
+  String toString() {
+    return 'HomePageRouterArgs{id: $id, key: $key}';
+  }
 }

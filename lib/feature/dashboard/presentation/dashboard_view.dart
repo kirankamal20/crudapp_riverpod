@@ -23,7 +23,7 @@ class DashboardView extends StatelessWidget {
                       onPressed: () {
                         ref
                             .read(autoroutePrvider)
-                            .navigate(const HomePageRouter());
+                            .navigate(HomePageRouter(id: 2));
                       },
                       child: const Text("CRUD OPERATION")),
                 );

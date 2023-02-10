@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage({super.key});
+  final int id;
+  const HomePage({required this.id, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
@@ -73,7 +74,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Consumer(
                 builder: (context, ref, child) {
-                  final isVisibleUpdateButton = ref.watch(isVisibleUpdateButtonPod);
+                  final isVisibleUpdateButton =
+                      ref.watch(isVisibleUpdateButtonPod);
                   return SizedBox(
                     height: 40,
                     width: 200,
